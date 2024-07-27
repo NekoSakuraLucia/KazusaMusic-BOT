@@ -1,6 +1,6 @@
 export const BOTConfig = {
         token: "",
-        bot_client_id: 
+        bot_client_id: "",
         bot_username: "KazusaTest",
         guildId: "",
         nodes: {
