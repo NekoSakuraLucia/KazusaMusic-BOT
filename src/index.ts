@@ -1,4 +1,11 @@
-import { ActivityType, Client, Collection, GatewayIntentBits, REST, Routes } from 'discord.js';
+import { 
+        ActivityType, 
+        Client, 
+        Collection, 
+        GatewayIntentBits, 
+        REST, 
+        Routes 
+} from 'discord.js';
 import fse from 'fs-extra';
 import path from 'path';
 import chalk from 'chalk';
