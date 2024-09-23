@@ -1,6 +1,17 @@
 import { Command } from "../types";
-import { SlashCommandBuilder, CommandInteractionOptionResolver, GuildMember, EmbedBuilder } from "discord.js";
-import { JoinVoiceChannel, NotConnectVoice, NotPlaying, PinkColor, SameRoom } from "../utils/embedEvents";
+import { 
+        SlashCommandBuilder,
+        CommandInteractionOptionResolver,
+        GuildMember,
+        EmbedBuilder 
+} from "discord.js";
+import { 
+        JoinVoiceChannel, 
+        NotConnectVoice,
+        NotPlaying, 
+        PinkColor,
+        SameRoom 
+} from "../utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('filters').setDescription('ฟิลเตอร์สำหรับเพลง')
