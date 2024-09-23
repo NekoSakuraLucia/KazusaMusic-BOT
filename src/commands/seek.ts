@@ -1,7 +1,18 @@
-import { CommandInteractionOptionResolver, EmbedBuilder, GuildMember, SlashCommandBuilder } from "discord.js";
+import { 
+        CommandInteractionOptionResolver, 
+        EmbedBuilder, 
+        GuildMember, 
+        SlashCommandBuilder 
+} from "discord.js";
 import { Command } from "../types";
 import { MusicTime } from "../utils/MusicTimeUtils";
-import { JoinVoiceChannel, NotConnectVoice, NotPlaying, PinkColor, SameRoom } from "../utils/embedEvents";
+import { 
+        JoinVoiceChannel, 
+        NotConnectVoice, 
+        NotPlaying, 
+        PinkColor, 
+        SameRoom 
+} from "../utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('seek').setDescription('กรอเพลงไปยังเวลาปัจจุบัน')
