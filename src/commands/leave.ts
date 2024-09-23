@@ -1,6 +1,16 @@
 import { Command } from "../types";
-import { SlashCommandBuilder, GuildMember, EmbedBuilder } from "discord.js";
-import { JoinVoiceChannel, NotConnectVoice, NotPlaying, PinkColor, SameRoom } from "../utils/embedEvents";
+import { 
+        SlashCommandBuilder,
+        GuildMember,
+        EmbedBuilder 
+} from "discord.js";
+import { 
+        JoinVoiceChannel,
+        NotConnectVoice,
+        NotPlaying, 
+        PinkColor,
+        SameRoom 
+} from "../utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('leave').setDescription('ทำลายเพลงและออกจากห้องเสียง')
