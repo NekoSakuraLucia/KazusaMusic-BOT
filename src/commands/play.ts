@@ -11,7 +11,11 @@ import {
         ButtonStyle
 } from "discord.js";
 import { MusicTime } from "../utils/MusicTimeUtils";
-import { PinkColor, JoinVoiceChannel, SearchError } from "../utils/embedEvents";
+import { 
+        PinkColor, 
+        JoinVoiceChannel, 
+        SearchError 
+} from "../utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
