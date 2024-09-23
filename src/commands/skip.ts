@@ -1,6 +1,17 @@
-import { SlashCommandBuilder, CommandInteractionOptionResolver, GuildMember, EmbedBuilder } from "discord.js";
+import { 
+        SlashCommandBuilder,
+        CommandInteractionOptionResolver,
+        GuildMember,
+        EmbedBuilder 
+} from "discord.js";
 import { Command } from "../types";
-import { JoinVoiceChannel, NextTrack, NotConnectVoice, PinkColor, SameRoom } from "../utils/embedEvents";
+import { 
+        JoinVoiceChannel, 
+        NextTrack,
+        NotConnectVoice, 
+        PinkColor,
+        SameRoom 
+} from "../utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('skip').setDescription('ข้ามไปยังเพลงถัดไป')
