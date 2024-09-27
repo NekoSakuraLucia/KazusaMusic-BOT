@@ -8,8 +8,8 @@
     "start": "node dist/index.js",
     "build": "tsc"
   },
-  "author": "Kazusa Project และ RI BO",
-  "license": "ISC",
+  "author": "Kazusa Project และ Cxllme Neko",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
