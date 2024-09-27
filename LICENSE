@@ -1,0 +1,41 @@
+MIT License
+
+Copyright (c) 2024 NekoSakuraLucia
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+**Note**: If we find that the free-to-use code is being sold or used for commercial purposes without authorization, we will make this repo private immediately.
+
+**Additional Note**: This license does not grant you any rights to the underlying code or any other rights not explicitly stated in this license.
+
+---
+
+**MIT License**
+
+**ลิขสิทธิ์ (c) 2024 NekoSakuraLucia**
+
+อนุญาตให้ใช้ซอฟต์แวร์นี้ได้ฟรี โดยไม่คิดค่าใช้จ่าย ให้กับบุคคลใดก็ตามที่ได้รับสำเนาของซอฟต์แวร์และเอกสารประกอบซอฟต์แวร์ (ซึ่งเรียกรวมกันว่า "ซอฟต์แวร์") ให้สามารถจัดการกับซอฟต์แวร์ได้โดยไม่มีข้อจำกัดใดๆ รวมถึงสิทธิ์ในการใช้, คัดลอก, แก้ไข, รวม, เผยแพร่, แจกจ่าย, ใบอนุญาตย่อย, และ/หรือขายสำเนาของซอฟต์แวร์ และอนุญาตให้บุคคลที่ซอฟต์แวร์ได้รับการจัดเตรียมให้ใช้ในลักษณะดังกล่าว โดยต้องปฏิบัติตามเงื่อนไขต่อไปนี้:
+
+ข้อความลิขสิทธิ์ข้างต้นและข้อความอนุญาตนี้จะต้องรวมอยู่ในสำเนาหรือส่วนที่สำคัญของซอฟต์แวร์ทั้งหมด
+
+ซอฟต์แวร์นี้จัดเตรียมให้ "ตามสภาพ" โดยไม่มีการรับประกันใดๆ ทั้งโดยชัดแจ้งหรือโดยนัย รวมถึงแต่ไม่จำกัดเพียงการรับประกันความเหมาะสมเพื่อการค้าหรือการใช้งานเฉพาะเจาะจง ในกรณีที่เกิดความเสียหายใดๆ ไม่ว่าจะในกรณีของสัญญา, การละเมิด, หรืออื่นๆ จากการใช้ซอฟต์แวร์หรือการทำธุรกรรมอื่นๆ ในซอฟต์แวร์
+
+**หมายเหตุ**: หากพบว่ามีการนำซอฟต์แวร์ที่เปิดให้ใช้งานฟรีนี้ไปขายหรือใช้เพื่อการค้าโดยไม่ได้รับอนุญาต, เราจะทำการปิด repo นี้เป็นส่วนตัวทันที
+
+**หมายเหตุเพิ่มเติม**: สัญญาอนุญาตนี้ไม่ได้มอบสิทธิ์ใดๆ ให้กับโค้ดพื้นฐานหรือสิทธิ์อื่นๆ ที่ไม่ได้ระบุไว้ในสัญญาอนุญาตนี้
