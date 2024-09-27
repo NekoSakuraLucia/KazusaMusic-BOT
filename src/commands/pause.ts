@@ -1,6 +1,16 @@
-import { EmbedBuilder, GuildMember, SlashCommandBuilder } from "discord.js";
+import { 
+        EmbedBuilder, 
+        GuildMember, 
+        SlashCommandBuilder 
+} from "discord.js";
 import { Command } from "../types";
-import { JoinVoiceChannel, NotConnectVoice, NotPlaying, PinkColor, SameRoom } from "../utils/embedEvents";
+import { 
+        JoinVoiceChannel, 
+        NotConnectVoice, 
+        NotPlaying, 
+        PinkColor, 
+        SameRoom 
+} from "../utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('pause').setDescription('หยุดเพลงชั่วคราว')
