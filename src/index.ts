@@ -79,12 +79,12 @@ class KazusaMusicBot {
         }
 
         private async registerCommands(commands: Command[]): Promise<void> {
-                const guildId: string = BOTConfig.guildId;
+                const guildId: string | null = BOTConfig.guildId || null;
                 const rest = new REST({ version: '10' }).setToken(BOTConfig.token);
 
                 try {
                         await rest.put(
-                                guildId ?
+                                guildId && guildId.trim() !== "" ?
                                         Routes.applicationGuildCommands(this.client.user!.id, guildId) :
                                         Routes.applicationCommands(this.client.user!.id),
                                 { body: commands },
