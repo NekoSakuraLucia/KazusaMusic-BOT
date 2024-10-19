@@ -32,7 +32,7 @@ module.exports = {
                         const voiceId = (interaction.member as GuildMember).voice.channelId
                         if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] })
 
-                        const player = await client.lavalink.createPlayer({
+                        const player = client.lavalink.createPlayer({
                                 guildId: interaction.guildId,
                                 voiceChannelId: voiceId,
                                 textChannelId: interaction.channelId,
