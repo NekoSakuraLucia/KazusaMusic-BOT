@@ -9,11 +9,11 @@ import {
 import fse from 'fs-extra';
 import path from 'path';
 import chalk from 'chalk';
-import { BOTConfig } from './config/config';
-import { PlayerEvents } from './nodesEvents/Player';
-import { NodesEvents } from './nodesEvents/Nodes';
-import { KazusaLavaConfig } from './nodesEvents/KazusaConfig';
-import { KazusaInteraction } from './utils/Interaction';
+import { BOTConfig } from '@config/config';
+import { PlayerEvents } from '@nodesEvents/Player';
+import { NodesEvents } from '@nodesEvents/Nodes';
+import { KazusaLavaConfig } from '@nodesEvents/KazusaConfig';
+import { KazusaInteraction } from '@utils/Interaction';
 import { KazusaClient, Command } from './types';
 
 class KazusaMusicBot {
