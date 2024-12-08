@@ -1,4 +1,4 @@
-import { KazusaClient } from "../types";
+import { KazusaClient } from "src/types";
 import chalk from 'chalk';
 
 export function PlayerEvents(client: KazusaClient) {

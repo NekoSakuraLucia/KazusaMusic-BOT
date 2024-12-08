@@ -9,12 +9,12 @@ import {
         ButtonBuilder,
         ButtonStyle
 } from "discord.js";
-import { 
-        JoinVoiceChannel, 
-        SearchError 
+import {
+        JoinVoiceChannel,
+        SearchError
 } from "@utils/embedEvents";
 
-import { musicPlayEmbed, noTracksFoundEmbedPlay } from "@embeds/play";
+import { addedToQueueEmbedPlay, musicPlayEmbed, noTracksFoundEmbedPlay } from "@embeds/play";
 
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
@@ -52,42 +52,45 @@ module.exports = {
                                 return interaction.editReply({ embeds: [noTracksFoundEmbedPlay({ interaction, client }, song)] });
                         }
 
-                        await player.queue.add(search.tracks[0]);
+                        const track = search.tracks[0]
+                        await player.queue.add(track);
 
                         if (!player.playing) player.play();
 
-                        if (search.loadType === 'playlist' || search.loadType === 'track' || search.loadType === 'search') {
-                                const Filters = new StringSelectMenuBuilder()
-                                        .setCustomId('filters')
-                                        .setPlaceholder('เลือกฟิลเตอร์เพลง')
-                                        .addOptions(
-                                                new StringSelectMenuOptionBuilder()
-                                                        .setLabel('Clear Filters (ล้างฟิลเตอร์ทั้งหมด)')
-                                                        .setDescription('ล้างฟิลเตอร์ทั้งหมดที่คุณเปิดไม่ว่าจะเป็นตัวไหนก็ตาม')
-                                                        .setValue('clear'),
-                                                new StringSelectMenuOptionBuilder()
-                                                        .setLabel('🎶 Nightcore')
-                                                        .setDescription('ปรับให้เพลงเร็ว และ เสียงร้องแหลมขึ้น')
-                                                        .setValue('nightcore'),
-                                                new StringSelectMenuOptionBuilder()
-                                                        .setLabel('🎶 Karaoke')
-                                                        .setDescription('ตัดเสียงร้องของเพลงออก เหลือแค่ดนตรี')
-                                                        .setValue('karaoke')
-                                        );
-                                const SelectFilters = new ActionRowBuilder<StringSelectMenuBuilder>()
-                                        .addComponents(Filters);
+                        if (player.queue.tracks.length > 0) {
+                                await interaction.editReply({ embeds: [addedToQueueEmbedPlay({ interaction, client }, track, player.queue.tracks.length)] })
+                        } else {
+                                if (search.loadType === 'playlist' || search.loadType === 'track' || search.loadType === 'search') {
+                                        const Filters = new StringSelectMenuBuilder()
+                                                .setCustomId('filters')
+                                                .setPlaceholder('เลือกฟิลเตอร์เพลง')
+                                                .addOptions(
+                                                        new StringSelectMenuOptionBuilder()
+                                                                .setLabel('Clear Filters (ล้างฟิลเตอร์ทั้งหมด)')
+                                                                .setDescription('ล้างฟิลเตอร์ทั้งหมดที่คุณเปิดไม่ว่าจะเป็นตัวไหนก็ตาม')
+                                                                .setValue('clear'),
+                                                        new StringSelectMenuOptionBuilder()
+                                                                .setLabel('🎶 Nightcore')
+                                                                .setDescription('ปรับให้เพลงเร็ว และ เสียงร้องแหลมขึ้น')
+                                                                .setValue('nightcore'),
+                                                        new StringSelectMenuOptionBuilder()
+                                                                .setLabel('🎶 Karaoke')
+                                                                .setDescription('ตัดเสียงร้องของเพลงออก เหลือแค่ดนตรี')
+                                                                .setValue('karaoke')
+                                                );
+                                        const SelectFilters = new ActionRowBuilder<StringSelectMenuBuilder>()
+                                                .addComponents(Filters);
 
-                                const FilterRowCheck = new ActionRowBuilder<ButtonBuilder>()
-                                        .addComponents(
-                                                new ButtonBuilder()
-                                                        .setCustomId('filters-check')
-                                                        .setLabel('🎶 สถานะฟิลเตอร์')
-                                                        .setStyle(ButtonStyle.Secondary)
-                                        )
+                                        const FilterRowCheck = new ActionRowBuilder<ButtonBuilder>()
+                                                .addComponents(
+                                                        new ButtonBuilder()
+                                                                .setCustomId('filters-check')
+                                                                .setLabel('🎶 สถานะฟิลเตอร์')
+                                                                .setStyle(ButtonStyle.Secondary)
+                                                )
 
-                                await interaction.editReply({ embeds: [musicPlayEmbed(player, search, interaction, client)], components: [SelectFilters, FilterRowCheck] });
-
-                                return;
+                                        await interaction.editReply({ embeds: [musicPlayEmbed(player, search, interaction, client)], components: [SelectFilters, FilterRowCheck] });
+                                }
                         }
 
                         if (search.loadType === 'error') return interaction.editReply({ embeds: [SearchError] })

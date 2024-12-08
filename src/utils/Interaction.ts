@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
-import { KazusaClient } from "../types";
-import { PinkColor, SlashError } from "./embedEvents";
+import { KazusaClient } from "src/types";
+import { PinkColor, SlashError } from "@utils/embedEvents";
 
 export function KazusaInteraction(client: KazusaClient) {
         client.on('interactionCreate', async interaction => {

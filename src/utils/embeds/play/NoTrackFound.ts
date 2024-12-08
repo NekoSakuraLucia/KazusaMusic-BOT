@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 import { PinkColor } from "@utils/embedEvents";
-import { InteractionEmbed } from "../../../types/index";
+import { InteractionEmbed } from "src/types";
 
 /**
  * **noTracksFoundEmbedPlay** คืออิมเบ็ตสำหรับแสดงข้อความเมื่อค้นหาแล้วไม่พบเพลง

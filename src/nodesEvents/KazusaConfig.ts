@@ -1,4 +1,4 @@
-import { KazusaClient } from "../types/index";
+import { KazusaClient } from "src/types";
 import { LavalinkManager } from "lavalink-client";
 import { BOTConfig } from "@config/config";
 

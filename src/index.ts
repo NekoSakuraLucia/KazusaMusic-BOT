@@ -14,7 +14,7 @@ import { PlayerEvents } from '@nodesEvents/Player';
 import { NodesEvents } from '@nodesEvents/Nodes';
 import { KazusaLavaConfig } from '@nodesEvents/KazusaConfig';
 import { KazusaInteraction } from '@utils/Interaction';
-import { KazusaClient, Command } from './types';
+import { KazusaClient, Command } from 'src/types';
 
 class KazusaMusicBot {
         private client: KazusaClient;
