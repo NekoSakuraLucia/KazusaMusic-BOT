@@ -11,7 +11,7 @@ import {
         NotConnectVoice, 
         PinkColor,
         SameRoom 
-} from "../utils/embedEvents";
+} from "@utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('skip').setDescription('ข้ามไปยังเพลงถัดไป')

@@ -1,4 +1,4 @@
-import { Command } from "../types";
+import { Command } from "../types/index";
 import {
         SlashCommandBuilder,
         CommandInteractionOptionResolver,
@@ -12,9 +12,9 @@ import {
 import { 
         JoinVoiceChannel, 
         SearchError 
-} from "../utils/embedEvents";
+} from "@utils/embedEvents";
 
-import { musicPlayEmbed, noTracksFoundEmbedPlay } from "../utils/embeds/play";
+import { musicPlayEmbed, noTracksFoundEmbedPlay } from "@embeds/play";
 
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')

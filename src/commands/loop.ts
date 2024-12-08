@@ -1,6 +1,6 @@
 import { CommandInteractionOptionResolver, EmbedBuilder, GuildMember, SlashCommandBuilder } from "discord.js";
 import { Command } from "../types";
-import { JoinVoiceChannel, NotConnectVoice, NotPlaying, PinkColor, SameRoom } from "../utils/embedEvents";
+import { JoinVoiceChannel, NotConnectVoice, NotPlaying, PinkColor, SameRoom } from "@utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('loop').setDescription('วนเพลงซ้ำหลายรอบ')

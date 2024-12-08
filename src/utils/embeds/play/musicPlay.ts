@@ -1,6 +1,6 @@
 import { Client, EmbedBuilder, Interaction } from "discord.js";
-import { PinkColor } from "../../embedEvents";
-import { MusicTime } from "../../MusicTimeUtils";
+import { PinkColor } from "@utils/embedEvents";
+import { MusicTime } from "@utils/MusicTimeUtils";
 import { Player, SearchResult, UnresolvedSearchResult } from "lavalink-client/dist/types";
 
 /**

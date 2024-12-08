@@ -1,6 +1,6 @@
-import { KazusaClient } from "../types";
+import { KazusaClient } from "../types/index";
 import { LavalinkManager } from "lavalink-client";
-import { BOTConfig } from "../config/config";
+import { BOTConfig } from "@config/config";
 
 export function KazusaLavaConfig(client: KazusaClient) {
         client.lavalink = new LavalinkManager({

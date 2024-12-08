@@ -11,7 +11,7 @@ import {
         NotPlaying, 
         PinkColor,
         SameRoom 
-} from "../utils/embedEvents";
+} from "@utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('filters').setDescription('ฟิลเตอร์สำหรับเพลง')

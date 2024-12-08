@@ -10,7 +10,7 @@ import {
         NotPlaying, 
         PinkColor, 
         SameRoom 
-} from "../utils/embedEvents";
+} from "@utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('pause').setDescription('หยุดเพลงชั่วคราว')

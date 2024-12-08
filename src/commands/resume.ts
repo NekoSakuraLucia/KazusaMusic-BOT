@@ -10,7 +10,7 @@ import {
         NotPlaying, 
         PinkColor,
         SameRoom 
-} from "../utils/embedEvents";
+} from "@utils/embedEvents";
 
 const data = new SlashCommandBuilder()
         .setName('resume').setDescription('เล่นเพลงต่อหลังจากหยุดชั่วคราว')
