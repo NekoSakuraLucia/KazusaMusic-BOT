@@ -1,4 +1,4 @@
-import { Command } from "../types";
+import { Command } from "src/types";
 import { 
         SlashCommandBuilder,
         CommandInteractionOptionResolver,

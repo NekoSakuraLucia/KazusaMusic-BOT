@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import { Command } from '../types';
+import { Command } from 'src/types';
 
 const data = new SlashCommandBuilder()
     .setName('ping')

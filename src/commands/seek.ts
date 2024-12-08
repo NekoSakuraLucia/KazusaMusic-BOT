@@ -4,7 +4,7 @@ import {
         GuildMember, 
         SlashCommandBuilder 
 } from "discord.js";
-import { Command } from "../types";
+import { Command } from "src/types";
 import { MusicTime } from "@utils/MusicTimeUtils";
 import { 
         JoinVoiceChannel, 

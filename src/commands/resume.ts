@@ -3,7 +3,7 @@ import {
         GuildMember,
         SlashCommandBuilder 
 } from "discord.js";
-import { Command } from "../types";
+import { Command } from "src/types";
 import { 
         JoinVoiceChannel, 
         NotConnectVoice, 

@@ -4,7 +4,7 @@ import {
         GuildMember,
         EmbedBuilder 
 } from "discord.js";
-import { Command } from "../types";
+import { Command } from "src/types";
 import { 
         JoinVoiceChannel, 
         NextTrack,
