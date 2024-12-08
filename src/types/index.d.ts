@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, Collection, CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, Client, Collection, CommandInteraction, Interaction, SlashCommandBuilder } from "discord.js";
 import { LavalinkManager } from "lavalink-client/dist/types";
 
 declare type InteractionExecute = (client: KazusaClient, interaction: ChatInputCommandInteraction<"cached">) => Promise<void> | void;
@@ -11,4 +11,9 @@ export interface Command {
 export interface KazusaClient extends Client {
         lavalink: LavalinkManager;
         commands: Collection<string, any>
-}
+};
+
+export interface InteractionEmbed {
+        interaction: Interaction;
+        client: Client
+};

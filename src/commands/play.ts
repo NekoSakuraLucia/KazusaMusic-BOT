@@ -14,7 +14,7 @@ import {
         SearchError 
 } from "../utils/embedEvents";
 
-import { musicPlayEmbed } from "../utils/embeds/play/musicPlay";
+import { musicPlayEmbed, noTracksFoundEmbedPlay } from "../utils/embeds/play";
 
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
@@ -48,6 +48,9 @@ module.exports = {
                                 query: song
                         }, interaction.user);
 
+                        if (!search || !search.tracks.length) {
+                                return interaction.editReply({ embeds: [noTracksFoundEmbedPlay({ interaction, client }, song)] });
+                        }
 
                         await player.queue.add(search.tracks[0]);
 
