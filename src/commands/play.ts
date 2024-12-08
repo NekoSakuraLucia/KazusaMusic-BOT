@@ -3,19 +3,18 @@ import {
         SlashCommandBuilder,
         CommandInteractionOptionResolver,
         GuildMember,
-        EmbedBuilder,
         StringSelectMenuBuilder,
         ActionRowBuilder,
         StringSelectMenuOptionBuilder,
         ButtonBuilder,
         ButtonStyle
 } from "discord.js";
-import { MusicTime } from "../utils/MusicTimeUtils";
 import { 
-        PinkColor, 
         JoinVoiceChannel, 
         SearchError 
 } from "../utils/embedEvents";
+
+import { musicPlayEmbed } from "../utils/embeds/play/musicPlay";
 
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
@@ -54,46 +53,6 @@ module.exports = {
 
                         if (!player.playing) player.play();
 
-                        const embedMusicPlay = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
-                                .setTitle(player.queue.tracks[0] ? `**เพิ่มคิวเพลงแล้วจำนวน ${player.queue.tracks.length} คิว**` : null)
-                                .setDescription(
-                                        search.loadType === 'playlist' ?
-                                                `เพลย์ลิสต์เพลง: ${search.playlist?.title}\nจำนวนแทร็ก: ${search.tracks.length}` :
-                                                search.loadType === 'track' ?
-                                                        `เพลง: [${search.tracks[0].info.title}](<${search.tracks[0].info.uri}>)\nจำนวนเพลง: ${player.queue.tracks.length}` :
-                                                        search.loadType === 'search' ?
-                                                                `เพลง: [${search.tracks[0].info.title}](<${search.tracks[0].info.uri}>)\nจำนวนเพลง: ${player.queue.tracks.length}` :
-                                                                search.loadType === 'error' ?
-                                                                        'เกิดข้อผิดพลาดระหว่างการค้นหาเพลง ลองอีกครั้งนะคะ' :
-                                                                        'แย่จังไม่พบข้อมูลเพลงที่คุณกำลังขอเลย..'
-                                )
-                                .setColor(PinkColor)
-                                .addFields(
-                                        {
-                                                name: '\`🎶\` **คิวทั้งหมด**',
-                                                value: `**${player.queue.tracks.length}**`,
-                                                inline: false
-                                        },
-                                        {
-                                                name: '\`🎶\` **เจ้าของเพลง**',
-                                                value: `**${search.tracks[0].info.author}**`,
-                                                inline: true
-                                        },
-                                        {
-                                                name: '\`🎶\` **ระยะเวลา**',
-                                                value: `**${MusicTime(search.tracks[0].info.duration as number)}**`,
-                                                inline: true
-                                        },
-                                        {
-                                                name: '\`🎶\` **เล่นบนโหนด**',
-                                                value: `**${player.node.id}**`,
-                                                inline: true
-                                        }
-                                )
-                                .setFooter({ text: client.user?.displayName as string, iconURL: client.user?.displayAvatarURL() ?? '' })
-                                .setTimestamp();
-
                         if (search.loadType === 'playlist' || search.loadType === 'track' || search.loadType === 'search') {
                                 const Filters = new StringSelectMenuBuilder()
                                         .setCustomId('filters')
@@ -123,7 +82,7 @@ module.exports = {
                                                         .setStyle(ButtonStyle.Secondary)
                                         )
 
-                                await interaction.editReply({ embeds: [embedMusicPlay], components: [SelectFilters, FilterRowCheck] });
+                                await interaction.editReply({ embeds: [musicPlayEmbed(player, search, interaction, client)], components: [SelectFilters, FilterRowCheck] });
 
                                 return;
                         }
