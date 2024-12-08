@@ -20,9 +20,6 @@ importers:
       discord.js:
         specifier: ^14.15.3
         version: 14.16.2
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.4.7
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
@@ -162,10 +159,6 @@ packages:
   discord.js@14.16.2:
     resolution: {integrity: sha512-VGNi9WE2dZIxYM8/r/iatQQ+3LT8STW4hhczJOwm+DBeHq66vsKDCk8trChNCB01sMO9crslYuEMeZl2d7r3xw==}
     engines: {node: '>=18'}
-
-  dotenv@16.4.7:
-    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
-    engines: {node: '>=12'}
 
   escape-string-regexp@1.0.5:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
@@ -410,8 +403,6 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  dotenv@16.4.7: {}
 
   escape-string-regexp@1.0.5: {}
 

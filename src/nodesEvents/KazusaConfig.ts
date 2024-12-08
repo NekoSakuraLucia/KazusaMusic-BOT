@@ -4,14 +4,12 @@ import { BOTConfig } from "../config/config";
 
 export function KazusaLavaConfig(client: KazusaClient) {
         client.lavalink = new LavalinkManager({
-                nodes: [
-                        {
-                                authorization: BOTConfig.nodes.authorization,
-                                host: BOTConfig.nodes.hostname,
-                                port: BOTConfig.nodes.port,
-                                id: BOTConfig.nodes.id
-                        }
-                ],
+                nodes: BOTConfig.nodes.map(node => ({
+                        authorization: node.authorization,
+                        host: node.hostname,
+                        port: node.port,
+                        id: node.id
+                })),
                 sendToShard: (guildId, payload) =>
                         client.guilds.cache.get(guildId)?.shard?.send(payload),
                 client: {

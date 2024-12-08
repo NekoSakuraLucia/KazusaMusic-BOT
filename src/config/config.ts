@@ -3,10 +3,12 @@ export const BOTConfig = {
         bot_client_id: "",
         bot_username: "KazusaTest",
         guildId: "",
-        nodes: {
-                authorization: "",
-                hostname: "",
-                port: 80,
-                id: "KazusaTest"
-        }
+        nodes: [
+                {
+                        authorization: "",
+                        hostname: "",
+                        port: 80,
+                        id: "KazusaTest"
+                }
+        ]
 }
