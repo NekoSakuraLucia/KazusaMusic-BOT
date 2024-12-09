@@ -10,7 +10,7 @@ import {
         SameRoom
 } from "@utils/embedEvents";
 
-import { musicPauseEmbed } from "@embeds/pause";
+import { alreadyPausedEmbed, musicPauseEmbed, musicPauseErrorEmbed } from "@embeds/pause";
 
 const data = new SlashCommandBuilder()
         .setName('pause').setDescription('หยุดเพลงชั่วคราว')
@@ -37,14 +37,13 @@ module.exports = {
                                         await interaction.editReply({ embeds: [musicPauseEmbed({ interaction, client }, player.queue)] })
                                 } catch (error) {
                                         console.error(error);
-                                        return interaction.editReply({ content: 'เกิดข้อผิดพลาดในการหยุดเพลง' });
+                                        return interaction.editReply({ embeds: [musicPauseErrorEmbed({ interaction, client }, player.queue)] });
                                 }
                         } else {
-                                await interaction.editReply({ content: "เพลงได้ถูกหยุดอยู่แล้วนะ" })
+                                await interaction.editReply({ embeds: [alreadyPausedEmbed({ interaction, client }, player.queue)] })
                         }
                 } catch (error) {
                         console.error(error)
-                        return interaction.editReply({ content: 'เกิดข้อผิดพลาดในการประมวลผลคำสั่ง' });
                 }
         }
 } as Command
