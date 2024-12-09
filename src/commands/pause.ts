@@ -1,16 +1,16 @@
-import { 
-        EmbedBuilder, 
-        GuildMember, 
-        SlashCommandBuilder 
+import {
+        GuildMember,
+        SlashCommandBuilder
 } from "discord.js";
 import { Command } from "src/types";
-import { 
-        JoinVoiceChannel, 
-        NotConnectVoice, 
-        NotPlaying, 
-        PinkColor, 
-        SameRoom 
+import {
+        JoinVoiceChannel,
+        NotConnectVoice,
+        NotPlaying,
+        SameRoom
 } from "@utils/embedEvents";
+
+import { musicPauseEmbed } from "@embeds/pause";
 
 const data = new SlashCommandBuilder()
         .setName('pause').setDescription('หยุดเพลงชั่วคราว')
@@ -31,17 +31,20 @@ module.exports = {
                         if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] })
                         if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] })
 
-                        await player.pause();
-
-                        const embedMusicPause = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() })
-                                .setDescription('**ทำการหยุดเพลงชั่วคราวแล้วค่ะ หากต้องการเล่นเพลงต่อพิมพ์ /resume**')
-                                .setColor(PinkColor)
-                                .setTimestamp();
-
-                        await interaction.editReply({ embeds: [embedMusicPause] })
+                        if (!player.paused) {
+                                try {
+                                        await player.pause();
+                                        await interaction.editReply({ embeds: [musicPauseEmbed({ interaction, client }, player.queue)] })
+                                } catch (error) {
+                                        console.error(error);
+                                        return interaction.editReply({ content: 'เกิดข้อผิดพลาดในการหยุดเพลง' });
+                                }
+                        } else {
+                                await interaction.editReply({ content: "เพลงได้ถูกหยุดอยู่แล้วนะ" })
+                        }
                 } catch (error) {
                         console.error(error)
+                        return interaction.editReply({ content: 'เกิดข้อผิดพลาดในการประมวลผลคำสั่ง' });
                 }
         }
 } as Command
