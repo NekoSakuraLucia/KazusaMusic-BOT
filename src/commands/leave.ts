@@ -23,20 +23,20 @@ module.exports = {
 
                         await interaction.deferReply();
 
-                        const voiceId = (interaction.member as GuildMember).voice.channelId
-                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] })
+                        const voiceId = (interaction.member as GuildMember).voice.channelId;
+                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
 
                         const player = client.lavalink.getPlayer(interaction.guildId);
                         if (!player) return interaction.editReply({ embeds: [NotConnectVoice] });
-                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] })
-                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] })
+                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
+                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] });
 
                         await player.destroy();
 
                         const embedMusicLeave = new EmbedBuilder()
                                 .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' }).setDescription('**ออกจากห้องเสียงแล้ว หากต้องการเล่นเพลงอีกครั้งสามารถสั่งหนูได้เลยนะคะ**').setColor(PinkColor).setTimestamp();
 
-                        await interaction.editReply({ embeds: [embedMusicLeave] })
+                        await interaction.editReply({ embeds: [embedMusicLeave] });
                 } catch (error) {
                         console.error(error)
                 }

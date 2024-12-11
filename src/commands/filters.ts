@@ -33,9 +33,9 @@ module.exports = {
                         const player = client.lavalink.getPlayer(interaction.guildId);
                         if (!player) return interaction.editReply({ embeds: [NotConnectVoice] });
                         if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
-                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] })
+                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
 
-                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] })
+                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] });
 
                         let response = "";
 

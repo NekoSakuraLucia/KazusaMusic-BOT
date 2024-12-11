@@ -26,13 +26,13 @@ module.exports = {
 
                         await interaction.deferReply();
 
-                        const voiceId = (interaction.member as GuildMember).voice.channelId
-                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] })
+                        const voiceId = (interaction.member as GuildMember).voice.channelId;
+                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
 
                         const player = client.lavalink.getPlayer(interaction.guildId);
                         if (!player) return interaction.editReply({ embeds: [NotConnectVoice] });
-                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] })
-                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] })
+                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
+                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] });
 
                         const TimeEmbed = new EmbedBuilder()
                                 .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
@@ -45,14 +45,14 @@ module.exports = {
                         const time = ((interaction.options as CommandInteractionOptionResolver).getInteger('เวลา') as number) * 1000;
                         if (time > player.queue.current.info.duration || time < 0) return interaction.editReply({
                                 embeds: [TimeEmbed]
-                        })
+                        });
 
                         await player.seek(time);
 
                         const EmbedMusicSeek = new EmbedBuilder()
                                 .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' }).setTitle('กรอเวลาเพลง').setDescription(`ทำการกรอเวลาไปยัง: **${MusicTime(player.position)}** แล้วค่ะ !`).setColor(PinkColor).setTimestamp();
 
-                        await interaction.editReply({ embeds: [EmbedMusicSeek] })
+                        await interaction.editReply({ embeds: [EmbedMusicSeek] });
                 } catch (error) {
                         console.error(error)
                 }

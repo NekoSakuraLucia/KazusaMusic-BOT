@@ -29,7 +29,7 @@ module.exports = {
                         const player = client.lavalink.getPlayer(interaction.guildId);
                         if (!player) return interaction.editReply({ embeds: [NotConnectVoice] });
                         if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
-                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] })
+                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
 
                         const currentTrack = player.queue.current;
                         const nextTrack = player.queue.tracks[0];
@@ -50,7 +50,7 @@ module.exports = {
 
                         await interaction.editReply({
                                 embeds: [embedMusicSkip]
-                        })
+                        });
                 } catch (error) {
                         console.error(error)
                 }
