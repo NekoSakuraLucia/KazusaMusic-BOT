@@ -14,7 +14,7 @@ import {
         SearchError
 } from "@utils/embedEvents";
 
-import { addedToQueueEmbedPlay, musicPlayEmbed, noTracksFoundEmbedPlay } from "@embeds/play";
+import { addedToQueueEmbedPlay, musicPlayEmbed, noTracksFoundEmbedPlay, RegexPlayError } from "@embeds/play";
 
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
@@ -43,6 +43,25 @@ module.exports = {
                         await player.connect();
 
                         const song = ((interaction.options as CommandInteractionOptionResolver).getString('song') as string);
+
+                        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=|shorts\/|embed\/)[\w-]+/;
+                        const soundcloudRegex = /^(https?:\/\/)?(www\.)?soundcloud\.com\/[\w-]+\/[\w-]+/;
+
+                        // เช็คว่า song เป็น URL หรือไม่
+                        let isUrl = false;
+                        try {
+                                new URL(song); // ถ้า song เป็น URL ที่ถูกต้อง จะไม่เกิด error
+                                isUrl = true;
+                        } catch (e) {
+                                isUrl = false;
+                        }
+
+                        // ถ้าเป็น URL ให้ตรวจสอบว่าเป็นลิงก์จาก YouTube หรือ SoundCloud
+                        if (isUrl) {
+                                if (!youtubeRegex.test(song) && !soundcloudRegex.test(song)) {
+                                        return interaction.editReply({ embeds: [RegexPlayError({ interaction, client }, song)] });
+                                }
+                        }
 
                         const search = await player.search({
                                 query: song,
