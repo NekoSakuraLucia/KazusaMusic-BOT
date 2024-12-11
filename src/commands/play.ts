@@ -45,7 +45,8 @@ module.exports = {
                         const song = ((interaction.options as CommandInteractionOptionResolver).getString('song') as string);
 
                         const search = await player.search({
-                                query: song
+                                query: song,
+                                source: "scsearch"
                         }, interaction.user);
 
                         if (!search || !search.tracks.length) {
