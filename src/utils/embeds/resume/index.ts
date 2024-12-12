@@ -1,3 +1,5 @@
 import musicResumeEmbed from "./musicResume";
+import alreadyResumeEmbed from "./alreadyResume";
+import musicResumeErrorEmbed from "./musicResumeError";
 
-export { musicResumeEmbed };
+export { musicResumeEmbed, alreadyResumeEmbed, musicResumeErrorEmbed };

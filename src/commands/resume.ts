@@ -10,7 +10,7 @@ import {
         SameRoom
 } from "@utils/embedEvents";
 
-import { musicResumeEmbed } from "@embeds/resume";
+import { musicResumeEmbed, alreadyResumeEmbed, musicResumeErrorEmbed } from "@embeds/resume";
 
 const data = new SlashCommandBuilder()
         .setName('resume').setDescription('เล่นเพลงต่อหลังจากหยุดชั่วคราว')
@@ -36,8 +36,11 @@ module.exports = {
                                         await player.resume();
                                         await interaction.editReply({ embeds: [musicResumeEmbed({ interaction, client }, player.queue)] })
                                 } catch (error) {
-                                        console.error(error)
+                                        console.error(error);
+                                        await interaction.editReply({ embeds: [musicResumeErrorEmbed({ interaction, client }, player.queue)] })
                                 }
+                        } else {
+                                await interaction.editReply({ embeds: [alreadyResumeEmbed({ interaction, client }, player.queue)] });
                         }
                 } catch (error) {
                         console.error(error)
