@@ -81,25 +81,26 @@ module.exports = {
                                 await interaction.editReply({ embeds: [addedToQueueEmbedPlay({ interaction, client }, track, player.queue.tracks.length)] })
                         } else {
                                 if (search.loadType === 'playlist' || search.loadType === 'track' || search.loadType === 'search') {
-                                        const Filters = new StringSelectMenuBuilder()
-                                                .setCustomId('filters')
-                                                .setPlaceholder('เลือกฟิลเตอร์เพลง')
-                                                .addOptions(
-                                                        new StringSelectMenuOptionBuilder()
-                                                                .setLabel('Clear Filters (ล้างฟิลเตอร์ทั้งหมด)')
-                                                                .setDescription('ล้างฟิลเตอร์ทั้งหมดที่คุณเปิดไม่ว่าจะเป็นตัวไหนก็ตาม')
-                                                                .setValue('clear'),
-                                                        new StringSelectMenuOptionBuilder()
-                                                                .setLabel('🎶 Nightcore')
-                                                                .setDescription('ปรับให้เพลงเร็ว และ เสียงร้องแหลมขึ้น')
-                                                                .setValue('nightcore'),
-                                                        new StringSelectMenuOptionBuilder()
-                                                                .setLabel('🎶 Karaoke')
-                                                                .setDescription('ตัดเสียงร้องของเพลงออก เหลือแค่ดนตรี')
-                                                                .setValue('karaoke')
-                                                );
                                         const SelectFilters = new ActionRowBuilder<StringSelectMenuBuilder>()
-                                                .addComponents(Filters);
+                                                .addComponents(
+                                                        new StringSelectMenuBuilder()
+                                                                .setCustomId('filters')
+                                                                .setPlaceholder('เลือกฟิลเตอร์เพลง')
+                                                                .addOptions(
+                                                                        new StringSelectMenuOptionBuilder()
+                                                                                .setLabel('Clear Filters (ล้างฟิลเตอร์ทั้งหมด)')
+                                                                                .setDescription('ล้างฟิลเตอร์ทั้งหมดที่คุณเปิดไม่ว่าจะเป็นตัวไหนก็ตาม')
+                                                                                .setValue('clear'),
+                                                                        new StringSelectMenuOptionBuilder()
+                                                                                .setLabel('🎶 Nightcore')
+                                                                                .setDescription('ปรับให้เพลงเร็ว และ เสียงร้องแหลมขึ้น')
+                                                                                .setValue('nightcore'),
+                                                                        new StringSelectMenuOptionBuilder()
+                                                                                .setLabel('🎶 Karaoke')
+                                                                                .setDescription('ตัดเสียงร้องของเพลงออก เหลือแค่ดนตรี')
+                                                                                .setValue('karaoke')
+                                                                )
+                                                );
 
                                         const FilterRowCheck = new ActionRowBuilder<ButtonBuilder>()
                                                 .addComponents(
