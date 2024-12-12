@@ -111,7 +111,7 @@ module.exports = {
                                                                 .setStyle(ButtonStyle.Secondary)
                                                 )
 
-                                        await interaction.editReply({ embeds: [musicPlayEmbed(player, search, interaction, client)], components: [SelectFilters, FilterRowCheck] });
+                                        await interaction.editReply({ embeds: [musicPlayEmbed({ interaction, client }, player, search)], components: [SelectFilters, FilterRowCheck] });
                                 }
                         }
 

@@ -1,7 +1,8 @@
-import { Client, EmbedBuilder, Interaction } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { PinkColor } from "@utils/embedEvents";
 import { MusicTime } from "@utils/MusicTimeUtils";
 import { Player, SearchResult, UnresolvedSearchResult } from "lavalink-client/dist/types";
+import { InteractionEmbed } from "src/types";
 
 /**
  * **musicPlayEmbed คืออิมเบ็ตสำหรับคำสั่งเล่นเพลงโดยเฉพาะ**
@@ -12,7 +13,9 @@ import { Player, SearchResult, UnresolvedSearchResult } from "lavalink-client/di
  * @param client 
  * @returns 
  */
-export default function musicPlayEmbed(player: Player, search: SearchResult | UnresolvedSearchResult, interaction: Interaction, client: Client): EmbedBuilder {
+export default function musicPlayEmbed(embedData: InteractionEmbed, player: Player, search: SearchResult | UnresolvedSearchResult): EmbedBuilder {
+    const { interaction, client } = embedData;
+
     return new EmbedBuilder()
         .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
         .setTitle(player.queue.tracks[0] ? `**เพิ่มคิวเพลงแล้วจำนวน ${player.queue.tracks.length} คิว**` : null)
