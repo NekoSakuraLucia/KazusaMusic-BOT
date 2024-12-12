@@ -2,7 +2,13 @@ import { PinkColor } from "@utils/embedEvents";
 import { EmbedBuilder } from "discord.js";
 import { InteractionEmbed } from "src/types";
 
-export function RegexPlayError(embedData: InteractionEmbed, link: string): EmbedBuilder {
+/**
+ * 
+ * @param embedData 
+ * @param link 
+ * @returns 
+ */
+export default function RegexPlayError(embedData: InteractionEmbed, link: string): EmbedBuilder {
     const { interaction, client } = embedData;
 
     return new EmbedBuilder()

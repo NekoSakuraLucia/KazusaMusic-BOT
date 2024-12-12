@@ -9,7 +9,7 @@ import { InteractionEmbed } from "src/types";
  * @param song 
  * @returns 
  */
-export function noTracksFoundEmbedPlay(embedData: InteractionEmbed, song: string): EmbedBuilder {
+export default function noTracksFoundEmbedPlay(embedData: InteractionEmbed, song: string): EmbedBuilder {
     const { interaction, client } = embedData
 
     return new EmbedBuilder()

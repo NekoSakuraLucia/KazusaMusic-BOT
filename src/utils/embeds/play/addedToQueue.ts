@@ -11,7 +11,7 @@ import { InteractionEmbed } from "src/types";
  * @param tracksLength 
  * @returns 
  */
-export function addedToQueueEmbedPlay(embedData: InteractionEmbed, tracks: UnresolvedTrack | Track, tracksLength: number): EmbedBuilder {
+export default function addedToQueueEmbedPlay(embedData: InteractionEmbed, tracks: UnresolvedTrack | Track, tracksLength: number): EmbedBuilder {
     const { interaction, client } = embedData;
 
     return new EmbedBuilder()

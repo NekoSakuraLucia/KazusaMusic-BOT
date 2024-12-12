@@ -9,7 +9,7 @@ import { InteractionEmbed } from "src/types"
  * @param song 
  * @returns 
  */
-export function musicPauseErrorEmbed(embedData: InteractionEmbed, song: Queue): EmbedBuilder {
+export default function musicPauseErrorEmbed(embedData: InteractionEmbed, song: Queue): EmbedBuilder {
     const { interaction, client } = embedData;
 
     return new EmbedBuilder()
