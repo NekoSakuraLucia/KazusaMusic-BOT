@@ -1,16 +1,16 @@
-import { 
-        EmbedBuilder,
+import {
         GuildMember,
-        SlashCommandBuilder 
+        SlashCommandBuilder
 } from "discord.js";
 import { Command } from "src/types";
-import { 
-        JoinVoiceChannel, 
-        NotConnectVoice, 
-        NotPlaying, 
-        PinkColor,
-        SameRoom 
+import {
+        JoinVoiceChannel,
+        NotConnectVoice,
+        NotPlaying,
+        SameRoom
 } from "@utils/embedEvents";
+
+import { musicResumeEmbed } from "@embeds/resume";
 
 const data = new SlashCommandBuilder()
         .setName('resume').setDescription('เล่นเพลงต่อหลังจากหยุดชั่วคราว')
@@ -31,14 +31,14 @@ module.exports = {
                         if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
                         if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] });
 
-                        await player.resume();
-                        const embedMusicResume = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
-                                .setDescription('**ทำการเล่นเพลงต่อแล้วค่ะ หากต้องการหยุดเพลงชั่วคราวพิมพ์ /pause**')
-                                .setColor(PinkColor)
-                                .setTimestamp();
-
-                        await interaction.editReply({ embeds: [embedMusicResume] });
+                        if (player.paused) {
+                                try {
+                                        await player.resume();
+                                        await interaction.editReply({ embeds: [musicResumeEmbed({ interaction, client }, player.queue)] })
+                                } catch (error) {
+                                        console.error(error)
+                                }
+                        }
                 } catch (error) {
                         console.error(error)
                 }
