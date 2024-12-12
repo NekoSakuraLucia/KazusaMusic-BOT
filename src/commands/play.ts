@@ -44,6 +44,7 @@ module.exports = {
 
                         const song = ((interaction.options as CommandInteractionOptionResolver).getString('song') as string);
 
+                        const youTubeMusicRegex = /^(https?:\/\/)?(www\.)?(music\.youtube\.com)\/(watch\?v=|playlist\?list=|results\?search_query=|)([a-zA-Z0-9_-]{11})/;
                         const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=|shorts\/|embed\/)[\w-]+/;
                         const soundcloudRegex = /^(https?:\/\/)?(www\.)?soundcloud\.com\/[\w-]+\/[\w-]+/;
 
@@ -58,7 +59,7 @@ module.exports = {
 
                         // ถ้าเป็น URL ให้ตรวจสอบว่าเป็นลิงก์จาก YouTube หรือ SoundCloud
                         if (isUrl) {
-                                if (!youtubeRegex.test(song) && !soundcloudRegex.test(song)) {
+                                if (!youtubeRegex.test(song) && !soundcloudRegex.test(song) && !youTubeMusicRegex.test(song)) {
                                         return interaction.editReply({ embeds: [RegexPlayError({ interaction, client }, song)] });
                                 }
                         }
