@@ -28,12 +28,6 @@ export const NotConnectVoice = new EmbedBuilder()
         .setColor(PinkColor)
         .setTimestamp();
 
-export const NextTrack = new EmbedBuilder()
-        .setTitle('เกิดข้อผิดพลาด')
-        .setDescription('**ไม่พบเพลงที่ต้องข้ามคิว !**')
-        .setColor(PinkColor)
-        .setTimestamp();
-
 export const SearchError = new EmbedBuilder()
         .setTitle('เกิดข้อผิดพลาด')
         .setDescription('**เกิดข้อผิดพลาดระหว่างการค้นหาเพลง !**')

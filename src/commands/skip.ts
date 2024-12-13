@@ -1,17 +1,16 @@
-import { 
+import {
         SlashCommandBuilder,
         CommandInteractionOptionResolver,
         GuildMember,
-        EmbedBuilder 
 } from "discord.js";
 import { Command } from "src/types";
-import { 
-        JoinVoiceChannel, 
-        NextTrack,
-        NotConnectVoice, 
-        PinkColor,
-        SameRoom 
+import {
+        JoinVoiceChannel,
+        NotConnectVoice,
+        SameRoom
 } from "@utils/embedEvents";
+
+import { noSongSkipEmbed, musicSkipEmbed } from "@embeds/skip";
 
 const data = new SlashCommandBuilder()
         .setName('skip').setDescription('ข้ามไปยังเพลงถัดไป')
@@ -31,25 +30,12 @@ module.exports = {
                         if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
                         if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
 
-                        const currentTrack = player.queue.current;
-                        const nextTrack = player.queue.tracks[0];
-
-                        if (!nextTrack) return interaction.editReply({ embeds: [NextTrack] });
+                        if (!player.queue.tracks[0]) return interaction.editReply({ embeds: [noSongSkipEmbed({ interaction, client })] });
 
                         await player.skip((interaction.options as CommandInteractionOptionResolver).getInteger('ข้ามคิว') || 0);
 
-                        const embedMusicSkip = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
-                                .setDescription(
-                                        currentTrack ?
-                                                `**ข้ามเพลงแล้ว ${currentTrack.info.title} ไปยัง ${nextTrack.info.title}**`
-                                                : `**ข้ามคิวแล้ว ${nextTrack.info.title}**`,
-                                )
-                                .setColor(PinkColor)
-                                .setTimestamp();
-
                         await interaction.editReply({
-                                embeds: [embedMusicSkip]
+                                embeds: [musicSkipEmbed({interaction,client}, player.queue, player.queue)]
                         });
                 } catch (error) {
                         console.error(error)
