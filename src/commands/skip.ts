@@ -35,7 +35,7 @@ module.exports = {
                         await player.skip((interaction.options as CommandInteractionOptionResolver).getInteger('ข้ามคิว') || 0);
 
                         await interaction.editReply({
-                                embeds: [musicSkipEmbed({interaction,client}, player.queue, player.queue)]
+                                embeds: [musicSkipEmbed({ interaction, client }, player.queue)]
                         });
                 } catch (error) {
                         console.error(error)
