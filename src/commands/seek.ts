@@ -10,9 +10,9 @@ import {
         JoinVoiceChannel,
         NotConnectVoice,
         NotPlaying,
-        PinkColor,
         SameRoom
 } from "@utils/embedEvents";
+import { musicSeekEmbed } from "@embeds/seek";
 
 const data = new SlashCommandBuilder()
         .setName('seek').setDescription('กรอเพลงไปยังเวลาปัจจุบัน')
@@ -49,10 +49,7 @@ module.exports = {
 
                         await player.seek(time);
 
-                        const EmbedMusicSeek = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' }).setTitle('กรอเวลาเพลง').setDescription(`ทำการกรอเวลาไปยัง: **${MusicTime(player.position)}** แล้วค่ะ !`).setColor(PinkColor).setTimestamp();
-
-                        await interaction.editReply({ embeds: [EmbedMusicSeek] });
+                        await interaction.editReply({ embeds: [musicSeekEmbed({ interaction, client }, player)] });
                 } catch (error) {
                         console.error(error)
                 }
