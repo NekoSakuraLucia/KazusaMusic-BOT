@@ -1,18 +1,19 @@
 import {
         CommandInteractionOptionResolver,
-        EmbedBuilder,
         GuildMember,
         SlashCommandBuilder
 } from "discord.js";
+
 import { Command } from "src/types";
-import { MusicTime } from "@utils/MusicTimeUtils";
+
 import {
         JoinVoiceChannel,
         NotConnectVoice,
         NotPlaying,
         SameRoom
 } from "@utils/embedEvents";
-import { musicSeekEmbed } from "@embeds/seek";
+
+import { musicSeekEmbed, musicTimeEmbed } from "@embeds/seek";
 
 const data = new SlashCommandBuilder()
         .setName('seek').setDescription('กรอเพลงไปยังเวลาปัจจุบัน')
@@ -34,17 +35,9 @@ module.exports = {
                         if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom({ interaction, client })] });
                         if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying({ interaction, client })] });
 
-                        const TimeEmbed = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
-                                .setTitle('กรอเวลาเพลง')
-                                .setDescription(`แย่จัง เวลาที่คุณจะกรอมันเกินเวลาจริงของเพลงน่ะสิ 
-                                ${Math.floor(player.queue.current.info.duration / 1000)} วินาที | 
-                                เวลาเพลงจริง ${MusicTime(player.queue.current.info.duration)} ลองใหม่อีกทีนะ`)
-                                .setColor('#F472B6')
-
                         const time = ((interaction.options as CommandInteractionOptionResolver).getInteger('เวลา') as number) * 1000;
                         if (time > player.queue.current.info.duration || time < 0) return interaction.editReply({
-                                embeds: [TimeEmbed]
+                                embeds: [musicTimeEmbed({ interaction, client }, player.queue)]
                         });
 
                         await player.seek(time);

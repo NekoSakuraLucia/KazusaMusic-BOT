@@ -4,7 +4,7 @@ import { EmbedBuilder } from "discord.js";
 import { Player } from "lavalink-client/dist/types";
 import { InteractionEmbed } from "src/types";
 
-export default function musicSeekEmbed(embedData: InteractionEmbed, player: Player) {
+export default function musicSeekEmbed(embedData: InteractionEmbed, player: Player): EmbedBuilder {
     const { interaction, client } = embedData;
     
     return new EmbedBuilder()
