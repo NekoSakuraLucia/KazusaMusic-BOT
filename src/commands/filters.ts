@@ -2,16 +2,15 @@ import { Command } from "src/types";
 import {
         SlashCommandBuilder,
         CommandInteractionOptionResolver,
-        GuildMember,
-        EmbedBuilder
+        GuildMember
 } from "discord.js";
 import {
         JoinVoiceChannel,
         NotConnectVoice,
         NotPlaying,
-        PinkColor,
         SameRoom
 } from "@utils/embedEvents";
+import { musicFilterEmbed } from "@embeds/filters";
 
 const data = new SlashCommandBuilder()
         .setName('filters').setDescription('ฟิลเตอร์สำหรับเพลง')
@@ -56,14 +55,8 @@ module.exports = {
                                         break;
                         }
 
-                        const embedMusicFilters = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
-                                .setDescription(`**${response}**`)
-                                .setColor(PinkColor)
-                                .setTimestamp();
-
                         await interaction.editReply({
-                                embeds: [embedMusicFilters]
+                                embeds: [musicFilterEmbed({ interaction, client }, response)]
                         });
                 } catch (error) {
                         console.error(error)
