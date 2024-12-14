@@ -12,7 +12,7 @@ export function KazusaInteraction(client: KazusaClient) {
                                         await client.commands.get(commandName).execute(client, interaction);
                                 } catch (error) {
                                         console.error(error);
-                                        await interaction.reply({ ephemeral: true, embeds: [SlashError] });
+                                        await interaction.reply({ ephemeral: true, embeds: [SlashError({ interaction, client })] });
                                 }
                         }
                 } else if (interaction.isStringSelectMenu()) {

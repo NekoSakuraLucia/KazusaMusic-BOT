@@ -1,16 +1,16 @@
 import { Command } from "src/types";
-import { 
+import {
         SlashCommandBuilder,
         CommandInteractionOptionResolver,
         GuildMember,
-        EmbedBuilder 
+        EmbedBuilder
 } from "discord.js";
-import { 
-        JoinVoiceChannel, 
+import {
+        JoinVoiceChannel,
         NotConnectVoice,
-        NotPlaying, 
+        NotPlaying,
         PinkColor,
-        SameRoom 
+        SameRoom
 } from "@utils/embedEvents";
 
 const data = new SlashCommandBuilder()
@@ -31,11 +31,11 @@ module.exports = {
 
                         const voiceId = (interaction.member as GuildMember).voice.channelId;
                         const player = client.lavalink.getPlayer(interaction.guildId);
-                        if (!player) return interaction.editReply({ embeds: [NotConnectVoice] });
-                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
-                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
+                        if (!player) return interaction.editReply({ embeds: [NotConnectVoice({ interaction, client })] });
+                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel({ interaction, client })] });
+                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom({ interaction, client })] });
 
-                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] });
+                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying({ interaction, client })] });
 
                         let response = "";
 

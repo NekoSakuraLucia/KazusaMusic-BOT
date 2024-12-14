@@ -26,9 +26,9 @@ module.exports = {
 
                         const voiceId = (interaction.member as GuildMember).voice.channelId;
                         const player = client.lavalink.getPlayer(interaction.guildId);
-                        if (!player) return interaction.editReply({ embeds: [NotConnectVoice] });
-                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
-                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
+                        if (!player) return interaction.editReply({ embeds: [NotConnectVoice({ interaction, client })] });
+                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel({ interaction, client })] });
+                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom({ interaction, client })] });
 
                         if (!player.queue.tracks[0]) return interaction.editReply({ embeds: [noSongSkipEmbed({ interaction, client })] });
 

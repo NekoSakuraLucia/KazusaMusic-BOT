@@ -19,12 +19,12 @@ module.exports = {
                         await interaction.deferReply();
 
                         const voiceId = (interaction.member as GuildMember).voice.channelId;
-                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] });
+                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel({ interaction, client })] });
 
                         const player = client.lavalink.getPlayer(interaction.guildId);
-                        if (!player) return interaction.editReply({ embeds: [NotConnectVoice] });
-                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom] });
-                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying] });
+                        if (!player) return interaction.editReply({ embeds: [NotConnectVoice({ interaction, client })] });
+                        if (player.voiceChannelId !== voiceId) return interaction.editReply({ embeds: [SameRoom({ interaction, client })] });
+                        if (!player.queue.current) return interaction.editReply({ embeds: [NotPlaying({ interaction, client })] });
 
                         await player.setRepeatMode((interaction.options as CommandInteractionOptionResolver).getString('โหมด') as "off" | "track" | "queue");
 

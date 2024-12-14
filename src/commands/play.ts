@@ -29,7 +29,7 @@ module.exports = {
                         await interaction.deferReply();
 
                         const voiceId = (interaction.member as GuildMember).voice.channelId
-                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel] })
+                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel({ interaction, client })] })
 
                         const player = client.lavalink.createPlayer({
                                 guildId: interaction.guildId,
@@ -115,7 +115,7 @@ module.exports = {
                                 }
                         }
 
-                        if (search.loadType === 'error') return interaction.editReply({ embeds: [SearchError] })
+                        if (search.loadType === 'error') return interaction.editReply({ embeds: [SearchError({ interaction, client })] })
                 } catch (error) {
                         console.error(error)
                 }
