@@ -1,22 +1,18 @@
 import { PinkColor } from "@utils/embedEvents";
-import { MusicTime } from "@utils/MusicTimeUtils";
 import { EmbedBuilder } from "discord.js";
-import { Player } from "lavalink-client/dist/types";
 import { InteractionEmbed } from "src/types";
 
 /**
  * 
  * @param embedData 
- * @param player 
  * @returns 
  */
-export default function musicSeekEmbed(embedData: InteractionEmbed, player: Player): EmbedBuilder {
+export default function musicLeaveEmbed(embedData: InteractionEmbed): EmbedBuilder {
     const { interaction, client } = embedData;
-    
+
     return new EmbedBuilder()
         .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
-        .setTitle('กรอเวลาเพลง')
-        .setDescription(`ทำการกรอเวลาไปยัง: **${MusicTime(player.position)}** แล้วค่ะ !`)
+        .setDescription('**ออกจากห้องเสียงแล้ว หากต้องการเล่นเพลงอีกครั้งสามารถสั่งหนูได้เลยนะคะ**')
         .setColor(PinkColor)
         .setFooter({ text: client.user?.displayName as string, iconURL: client.user?.displayAvatarURL() ?? '' })
         .setTimestamp();

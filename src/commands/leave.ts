@@ -1,16 +1,16 @@
 import { Command } from "src/types";
 import {
         SlashCommandBuilder,
-        GuildMember,
-        EmbedBuilder
+        GuildMember
 } from "discord.js";
 import {
         JoinVoiceChannel,
         NotConnectVoice,
         NotPlaying,
-        PinkColor,
         SameRoom
 } from "@utils/embedEvents";
+
+import { musicLeaveEmbed } from "@embeds/leave";
 
 const data = new SlashCommandBuilder()
         .setName('leave').setDescription('ทำลายเพลงและออกจากห้องเสียง')
@@ -33,10 +33,7 @@ module.exports = {
 
                         await player.destroy();
 
-                        const embedMusicLeave = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' }).setDescription('**ออกจากห้องเสียงแล้ว หากต้องการเล่นเพลงอีกครั้งสามารถสั่งหนูได้เลยนะคะ**').setColor(PinkColor).setTimestamp();
-
-                        await interaction.editReply({ embeds: [embedMusicLeave] });
+                        await interaction.editReply({ embeds: [musicLeaveEmbed({ interaction, client })] });
                 } catch (error) {
                         console.error(error)
                 }

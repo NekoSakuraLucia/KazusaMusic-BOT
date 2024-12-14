@@ -4,6 +4,12 @@ import { EmbedBuilder } from "discord.js";
 import { Queue } from "lavalink-client/dist/types";
 import { InteractionEmbed } from "src/types";
 
+/**
+ * 
+ * @param embedData 
+ * @param queue 
+ * @returns 
+ */
 export default function musicTimeEmbed(embedData: InteractionEmbed, queue: Queue): EmbedBuilder {
     const { interaction, client } = embedData;
 
