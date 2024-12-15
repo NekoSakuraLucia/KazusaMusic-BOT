@@ -1,6 +1,17 @@
-import { CommandInteractionOptionResolver, EmbedBuilder, GuildMember, SlashCommandBuilder } from "discord.js";
+import {
+        CommandInteractionOptionResolver,
+        GuildMember,
+        SlashCommandBuilder
+} from "discord.js";
 import { Command } from "src/types";
-import { JoinVoiceChannel, NotConnectVoice, NotPlaying, PinkColor, SameRoom } from "@utils/embedEvents";
+import {
+        JoinVoiceChannel,
+        NotConnectVoice,
+        NotPlaying,
+        SameRoom
+} from "@utils/embedEvents";
+
+import { musicLoopEmbed } from "@embeds/loop";
 
 const data = new SlashCommandBuilder()
         .setName('loop').setDescription('วนเพลงซ้ำหลายรอบ')
@@ -28,10 +39,7 @@ module.exports = {
 
                         await player.setRepeatMode((interaction.options as CommandInteractionOptionResolver).getString('โหมด') as "off" | "track" | "queue");
 
-                        const embedMusicLoop = new EmbedBuilder()
-                                .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' }).setDescription(`**เปิดการใช้งานลูป ${player.repeatMode} แล้วค่ะ**`).setColor(PinkColor).setTimestamp();
-
-                        await interaction.editReply({ embeds: [embedMusicLoop] });
+                        await interaction.editReply({ embeds: [musicLoopEmbed({ interaction, client }, player)] });
                 } catch (error) {
                         console.error(error)
                 }
