@@ -18,7 +18,6 @@ export default function musicPlayEmbed(embedData: InteractionEmbed, player: Play
 
     return new EmbedBuilder()
         .setAuthor({ name: interaction.user.displayName, iconURL: interaction.user.displayAvatarURL() ?? '' })
-        .setTitle(player.queue.tracks[0] ? `**เพิ่มคิวเพลงแล้วจำนวน ${player.queue.tracks.length} คิว**` : null)
         .setDescription(
             search.loadType === 'playlist' ?
                 `เพลย์ลิสต์เพลง: ${search.playlist?.title}\nจำนวนแทร็ก: ${search.tracks.length}` :
