@@ -16,6 +16,8 @@ import {
 
 import { addedToQueueEmbedPlay, musicPlayEmbed, noTracksFoundEmbedPlay, RegexPlayError } from "@embeds/play";
 
+import { youTubeMusicRegex, youtubeRegex, soundcloudRegex } from "@utils/Regex";
+
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
         .addStringOption(o => o.setName('song').setDescription('ป้อน URL เพื่อเล่นเพลง').setRequired(true))
@@ -43,10 +45,6 @@ module.exports = {
                         await player.connect();
 
                         const song = ((interaction.options as CommandInteractionOptionResolver).getString('song') as string);
-
-                        const youTubeMusicRegex = /^(https?:\/\/)?(www\.)?(music\.youtube\.com)\/(watch\?v=|playlist\?list=|results\?search_query=|)([a-zA-Z0-9_-]{11})/;
-                        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=|shorts\/|embed\/)?[\w-]+(.*)?$/;
-                        const soundcloudRegex = /^(https?:\/\/)?(www\.)?soundcloud\.com\/[\w-]+\/[\w-]+/;
 
                         // เช็คว่า song เป็น URL หรือไม่
                         let isUrl = false;
