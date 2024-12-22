@@ -8,5 +8,7 @@ export function NodesEvents(client: KazusaClient) {
                 console.log(chalk.green(`[${chalk.white('KazusaMusic')}] -> [${chalk.white('NODES')}] -> ${chalk.magenta(`${node.id} disconected!`)}`))
         }).on('reconnecting', (node) => {
                 console.log(chalk.green(`[${chalk.white('KazusaMusic')}] -> [${chalk.white('NODES')}] -> ${chalk.magenta(`${node.id} reconnecting!`)}`))
+        }).on("error", (node) => {
+                console.log(chalk.green(`[${chalk.white('KazusaMusic')}] -> [${chalk.white('NODES')}] -> ${chalk.magenta(`${node.id} error!`)}`))
         })
 }
