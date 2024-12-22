@@ -16,7 +16,7 @@ import {
 
 import { addedToQueueEmbedPlay, musicPlayEmbed, noTracksFoundEmbedPlay, RegexPlayError } from "@embeds/play";
 
-import { youTubeMusicRegex, youtubeRegex, soundcloudRegex } from "@utils/Regex";
+import { youTubeMusicRegex, youtubeRegex, soundcloudRegex, spotifyRegex } from "@utils/Regex";
 
 const data = new SlashCommandBuilder()
         .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
@@ -57,7 +57,7 @@ module.exports = {
 
                         // ถ้าเป็น URL ให้ตรวจสอบว่าเป็นลิงก์จาก YouTube หรือ SoundCloud
                         if (isUrl) {
-                                if (!youtubeRegex.test(song) && !soundcloudRegex.test(song) && !youTubeMusicRegex.test(song)) {
+                                if (!youtubeRegex.test(song) && !soundcloudRegex.test(song) && !youTubeMusicRegex.test(song) && !spotifyRegex.test(song)) {
                                         return interaction.editReply({ embeds: [RegexPlayError({ interaction, client }, song)] });
                                 }
                         }
