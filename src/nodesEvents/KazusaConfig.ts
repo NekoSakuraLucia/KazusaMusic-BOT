@@ -2,6 +2,11 @@ import { KazusaClient } from "src/types";
 import { LavalinkManager } from "lavalink-client";
 import { BOTConfig } from "@config/config";
 
+/**
+ * ตั้งค่า config lavalink-client เริ่มต้น
+ * 
+ * @param client 
+ */
 export function KazusaLavaConfig(client: KazusaClient) {
         client.lavalink = new LavalinkManager({
                 nodes: BOTConfig.nodes.map(node => ({
