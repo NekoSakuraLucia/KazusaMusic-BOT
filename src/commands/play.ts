@@ -64,7 +64,6 @@ module.exports = {
 
                         const search = await player.search({
                                 query: song,
-                                source: "scsearch"
                         }, interaction.user);
 
                         if (!search || !search.tracks.length) {
