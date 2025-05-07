@@ -1,120 +1,184 @@
-import { Command } from "src/types";
+import { Command } from 'src/types';
 import {
-        SlashCommandBuilder,
-        CommandInteractionOptionResolver,
-        GuildMember,
-        StringSelectMenuBuilder,
-        ActionRowBuilder,
-        StringSelectMenuOptionBuilder,
-        ButtonBuilder,
-        ButtonStyle
-} from "discord.js";
+    SlashCommandBuilder,
+    CommandInteractionOptionResolver,
+    GuildMember,
+    StringSelectMenuBuilder,
+    ActionRowBuilder,
+    StringSelectMenuOptionBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+} from 'discord.js';
+import { JoinVoiceChannel, SearchError } from '@utils/embedEvents';
+
 import {
-        JoinVoiceChannel,
-        SearchError
-} from "@utils/embedEvents";
+    addedToQueueEmbedPlay,
+    musicPlayEmbed,
+    noTracksFoundEmbedPlay,
+    RegexPlayError,
+} from '@embeds/play';
 
-import { addedToQueueEmbedPlay, musicPlayEmbed, noTracksFoundEmbedPlay, RegexPlayError } from "@embeds/play";
-
-import { youTubeMusicRegex, youtubeRegex, soundcloudRegex, spotifyRegex } from "@utils/Regex";
+import {
+    youTubeMusicRegex,
+    youtubeRegex,
+    soundcloudRegex,
+    spotifyRegex,
+} from '@utils/Regex';
 
 const data = new SlashCommandBuilder()
-        .setName('play').setDescription('สั่งให้บอทเล่นเพลง')
-        .addStringOption(o => o.setName('song').setDescription('ป้อน URL เพื่อเล่นเพลง').setRequired(true))
+    .setName('play')
+    .setDescription('สั่งให้บอทเล่นเพลง')
+    .addStringOption((o) =>
+        o
+            .setName('song')
+            .setDescription('ป้อน URL เพื่อเล่นเพลง')
+            .setRequired(true)
+    );
 
 module.exports = {
-        data: data,
-        async execute(client, interaction) {
-                try {
-                        if (!interaction.guildId) return;
+    data: data,
+    async execute(client, interaction) {
+        try {
+            if (!interaction.guildId) return;
 
-                        await interaction.deferReply();
+            await interaction.deferReply();
 
-                        const voiceId = (interaction.member as GuildMember).voice.channelId
-                        if (!voiceId) return interaction.editReply({ embeds: [JoinVoiceChannel({ interaction, client })] })
+            const voiceId = (interaction.member as GuildMember).voice.channelId;
+            if (!voiceId)
+                return interaction.editReply({
+                    embeds: [JoinVoiceChannel({ interaction, client })],
+                });
 
-                        const player = client.lavalink.createPlayer({
-                                guildId: interaction.guildId,
-                                voiceChannelId: voiceId,
-                                textChannelId: interaction.channelId,
-                                selfDeaf: true,
-                                selfMute: false,
-                                volume: 100
-                        });
+            const player = client.lavalink.createPlayer({
+                guildId: interaction.guildId,
+                voiceChannelId: voiceId,
+                textChannelId: interaction.channelId,
+                selfDeaf: true,
+                selfMute: false,
+                volume: 100,
+            });
 
-                        await player.connect();
+            await player.connect();
 
-                        const song = ((interaction.options as CommandInteractionOptionResolver).getString('song') as string);
+            const song = (
+                interaction.options as CommandInteractionOptionResolver
+            ).getString('song') as string;
 
-                        // เช็คว่า song เป็น URL หรือไม่
-                        let isUrl = false;
-                        try {
-                                new URL(song); // ถ้า song เป็น URL ที่ถูกต้อง จะไม่เกิด error
-                                isUrl = true;
-                        } catch (e) {
-                                isUrl = false;
-                        }
+            // เช็คว่า song เป็น URL หรือไม่
+            let isUrl = false;
+            try {
+                new URL(song); // ถ้า song เป็น URL ที่ถูกต้อง จะไม่เกิด error
+                isUrl = true;
+            } catch (e) {
+                isUrl = false;
+            }
 
-                        // ถ้าเป็น URL ให้ตรวจสอบว่าเป็นลิงก์จาก YouTube หรือ SoundCloud
-                        if (isUrl) {
-                                if (!youtubeRegex.test(song) && !soundcloudRegex.test(song) && !youTubeMusicRegex.test(song) && !spotifyRegex.test(song)) {
-                                        return interaction.editReply({ embeds: [RegexPlayError({ interaction, client }, song)] });
-                                }
-                        }
-
-                        const search = await player.search({
-                                query: song,
-                        }, interaction.user);
-
-                        if (!search || !search.tracks.length) {
-                                return interaction.editReply({ embeds: [noTracksFoundEmbedPlay({ interaction, client }, song)] });
-                        }
-
-                        const track = search.tracks[0]
-                        await player.queue.add(track);
-
-                        if (!player.playing) player.play();
-
-                        if (player.queue.tracks.length > 0) {
-                                await interaction.editReply({ embeds: [addedToQueueEmbedPlay({ interaction, client }, track, player.queue.tracks.length)] })
-                        } else {
-                                if (search.loadType === 'playlist' || search.loadType === 'track' || search.loadType === 'search') {
-                                        const SelectFilters = new ActionRowBuilder<StringSelectMenuBuilder>()
-                                                .addComponents(
-                                                        new StringSelectMenuBuilder()
-                                                                .setCustomId('filters')
-                                                                .setPlaceholder('เลือกฟิลเตอร์เพลง')
-                                                                .addOptions(
-                                                                        new StringSelectMenuOptionBuilder()
-                                                                                .setLabel('Clear Filters (ล้างฟิลเตอร์ทั้งหมด)')
-                                                                                .setDescription('ล้างฟิลเตอร์ทั้งหมดที่คุณเปิดไม่ว่าจะเป็นตัวไหนก็ตาม')
-                                                                                .setValue('clear'),
-                                                                        new StringSelectMenuOptionBuilder()
-                                                                                .setLabel('🎶 Nightcore')
-                                                                                .setDescription('ปรับให้เพลงเร็ว และ เสียงร้องแหลมขึ้น')
-                                                                                .setValue('nightcore'),
-                                                                        new StringSelectMenuOptionBuilder()
-                                                                                .setLabel('🎶 Karaoke')
-                                                                                .setDescription('ตัดเสียงร้องของเพลงออก เหลือแค่ดนตรี')
-                                                                                .setValue('karaoke')
-                                                                )
-                                                );
-
-                                        const FilterRowCheck = new ActionRowBuilder<ButtonBuilder>()
-                                                .addComponents(
-                                                        new ButtonBuilder()
-                                                                .setCustomId('filters-check')
-                                                                .setLabel('🎶 สถานะฟิลเตอร์')
-                                                                .setStyle(ButtonStyle.Secondary)
-                                                )
-
-                                        await interaction.editReply({ embeds: [musicPlayEmbed({ interaction, client }, player, search)], components: [SelectFilters, FilterRowCheck] });
-                                }
-                        }
-
-                        if (search.loadType === 'error') return interaction.editReply({ embeds: [SearchError({ interaction, client })] })
-                } catch (error) {
-                        console.error(error)
+            // ถ้าเป็น URL ให้ตรวจสอบว่าเป็นลิงก์จาก YouTube หรือ SoundCloud
+            if (isUrl) {
+                if (
+                    !youtubeRegex.test(song) &&
+                    !soundcloudRegex.test(song) &&
+                    !youTubeMusicRegex.test(song) &&
+                    !spotifyRegex.test(song)
+                ) {
+                    return interaction.editReply({
+                        embeds: [RegexPlayError({ interaction, client }, song)],
+                    });
                 }
+            }
+
+            const search = await player.search(
+                {
+                    query: song,
+                },
+                interaction.user
+            );
+
+            if (!search || !search.tracks.length) {
+                return interaction.editReply({
+                    embeds: [
+                        noTracksFoundEmbedPlay({ interaction, client }, song),
+                    ],
+                });
+            }
+
+            const track = search.tracks[0];
+            await player.queue.add(track);
+
+            if (!player.playing) player.play();
+
+            if (player.queue.tracks.length > 0) {
+                await interaction.editReply({
+                    embeds: [
+                        addedToQueueEmbedPlay(
+                            { interaction, client },
+                            track,
+                            player.queue.tracks.length
+                        ),
+                    ],
+                });
+            } else {
+                if (
+                    search.loadType === 'playlist' ||
+                    search.loadType === 'track' ||
+                    search.loadType === 'search'
+                ) {
+                    const SelectFilters =
+                        new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
+                            new StringSelectMenuBuilder()
+                                .setCustomId('filters')
+                                .setPlaceholder('เลือกฟิลเตอร์เพลง')
+                                .addOptions(
+                                    new StringSelectMenuOptionBuilder()
+                                        .setLabel(
+                                            'Clear Filters (ล้างฟิลเตอร์ทั้งหมด)'
+                                        )
+                                        .setDescription(
+                                            'ล้างฟิลเตอร์ทั้งหมดที่คุณเปิดไม่ว่าจะเป็นตัวไหนก็ตาม'
+                                        )
+                                        .setValue('clear'),
+                                    new StringSelectMenuOptionBuilder()
+                                        .setLabel('🎶 Nightcore')
+                                        .setDescription(
+                                            'ปรับให้เพลงเร็ว และ เสียงร้องแหลมขึ้น'
+                                        )
+                                        .setValue('nightcore'),
+                                    new StringSelectMenuOptionBuilder()
+                                        .setLabel('🎶 Karaoke')
+                                        .setDescription(
+                                            'ตัดเสียงร้องของเพลงออก เหลือแค่ดนตรี'
+                                        )
+                                        .setValue('karaoke')
+                                )
+                        );
+
+                    const FilterRowCheck =
+                        new ActionRowBuilder<ButtonBuilder>().addComponents(
+                            new ButtonBuilder()
+                                .setCustomId('filters-check')
+                                .setLabel('🎶 สถานะฟิลเตอร์')
+                                .setStyle(ButtonStyle.Secondary)
+                        );
+
+                    return await interaction.editReply({
+                        embeds: [
+                            musicPlayEmbed(
+                                { interaction, client },
+                                player,
+                                search
+                            ),
+                        ],
+                        components: [SelectFilters, FilterRowCheck],
+                    });
+                }
+            }
+
+            if (search.loadType === 'error')
+                return interaction.editReply({
+                    embeds: [SearchError({ interaction, client })],
+                });
+        } catch (error) {
+            console.error(error);
         }
-} as Command
+    },
+} as Command;
