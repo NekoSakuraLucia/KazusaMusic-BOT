@@ -15,6 +15,7 @@
     "@types/node": "^20.14.9",
     "chalk": "^2.4.2",
     "discord.js": "^14.15.3",
+    "dotenv": "^16.5.0",
     "fs-extra": "^11.2.0",
     "lavalink-client": "^2.2.0",
     "module-alias": "^2.2.3",
