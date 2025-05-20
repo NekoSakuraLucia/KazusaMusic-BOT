@@ -115,9 +115,9 @@ export function SlashError(embedData: InteractionEmbed): EmbedBuilder {
         .setTimestamp();
 }
 
-// isStringSelectMenu
+// CatchError
 
-export function StringSelectMenuError(
+export function CatchError(
     embedData: InteractionEmbed,
     errorDescription: string | null,
     error: string | unknown
