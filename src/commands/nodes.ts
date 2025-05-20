@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import { Command } from 'src/types';
+import type { Command } from 'src/types';
 import { formatUptime } from '@utils/MusicTimeUtils';
 
 const data = new SlashCommandBuilder()
@@ -34,8 +34,16 @@ module.exports = {
                             node.connected ? 'เชื่อมต่อแล้ว' : 'ไม่ได้เชื่อมต่อ'
                         }
                         ผู้เล่น: ${stats.players} / ${stats.playingPlayers}
-                        CPU: ${stats.cpu.systemLoad.toFixed(2)}% (System) | ${stats.cpu.lavalinkLoad.toFixed(2)}%
-                        RAM: ${(stats.memory.used / 1024 / 1024).toFixed(2)} MB / ${(stats.memory.reservable / 1024 / 1024).toFixed(2)} MB
+                        CPU: ${stats.cpu.systemLoad.toFixed(
+                            2
+                        )}% (System) | ${stats.cpu.lavalinkLoad.toFixed(2)}%
+                        RAM: ${(stats.memory.used / 1024 / 1024).toFixed(
+                            2
+                        )} MB / ${(
+                            stats.memory.reservable /
+                            1024 /
+                            1024
+                        ).toFixed(2)} MB
                         อัพไทม์: ${formatUptime(stats.uptime)}
                         \`\`\`
                     `.replace(/^\s+|\s+$/gm, '');
@@ -46,7 +54,6 @@ module.exports = {
             }
 
             await interaction.reply({ embeds: [nodeEmbed] });
-
         } catch (error) {
             console.error(error);
         }

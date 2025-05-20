@@ -1,10 +1,12 @@
 import { EmbedBuilder } from 'discord.js';
-import { KazusaClient } from 'src/types';
+import type { KazusaClient } from 'src/types';
 import { PinkColor, SlashError } from '@utils/embedEvents';
 
 // CatchError
 import { CatchError as StringSelectMenuError } from '@utils/embedEvents';
 import { CatchError as ButtonError } from '@utils/embedEvents';
+
+// Type
 import type { Player } from 'lavalink-client/dist/types';
 
 export function KazusaInteraction(client: KazusaClient) {

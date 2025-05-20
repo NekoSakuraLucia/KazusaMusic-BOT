@@ -1,5 +1,5 @@
 import { EmbedBuilder } from 'discord.js';
-import { InteractionEmbed } from 'src/types';
+import type { InteractionEmbed } from 'src/types';
 
 // Embed การทำงานฟังชั่น
 

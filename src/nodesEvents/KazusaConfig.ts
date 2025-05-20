@@ -1,41 +1,41 @@
-import { KazusaClient } from "src/types";
-import { LavalinkManager } from "lavalink-client";
-import { BOTConfig } from "@config/config";
+import type { KazusaClient } from 'src/types';
+import { LavalinkManager } from 'lavalink-client';
+import { BOTConfig } from '@config/config';
 
 /**
  * ตั้งค่า config lavalink-client เริ่มต้น
- * 
- * @param client 
+ *
+ * @param client
  */
 export function KazusaLavaConfig(client: KazusaClient) {
-        client.lavalink = new LavalinkManager({
-                nodes: BOTConfig.nodes.map(node => ({
-                        authorization: node.authorization,
-                        host: node.hostname,
-                        port: node.port,
-                        id: node.id
-                })),
-                sendToShard: (guildId, payload) =>
-                        client.guilds.cache.get(guildId)?.shard?.send(payload),
-                client: {
-                        id: BOTConfig.bot_client_id,
-                        username: BOTConfig.bot_username,
-                },
-                autoSkip: true,
-                playerOptions: {
-                        clientBasedPositionUpdateInterval: 150,
-                        defaultSearchPlatform: 'ytsearch',
-                        volumeDecrementer: 0.75,
-                        onDisconnect: {
-                                autoReconnect: false,
-                                destroyPlayer: true,
-                        },
-                        onEmptyQueue: {
-                                destroyAfterMs: 30_000,
-                        }
-                },
-                queueOptions: {
-                        maxPreviousTracks: 25
-                },
-        });
+    client.lavalink = new LavalinkManager({
+        nodes: BOTConfig.nodes.map((node) => ({
+            authorization: node.authorization,
+            host: node.hostname,
+            port: node.port,
+            id: node.id,
+        })),
+        sendToShard: (guildId, payload) =>
+            client.guilds.cache.get(guildId)?.shard?.send(payload),
+        client: {
+            id: BOTConfig.bot_client_id,
+            username: BOTConfig.bot_username,
+        },
+        autoSkip: true,
+        playerOptions: {
+            clientBasedPositionUpdateInterval: 150,
+            defaultSearchPlatform: 'ytsearch',
+            volumeDecrementer: 0.75,
+            onDisconnect: {
+                autoReconnect: false,
+                destroyPlayer: true,
+            },
+            onEmptyQueue: {
+                destroyAfterMs: 30_000,
+            },
+        },
+        queueOptions: {
+            maxPreviousTracks: 25,
+        },
+    });
 }
