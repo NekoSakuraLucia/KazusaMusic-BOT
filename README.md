@@ -52,6 +52,16 @@ export const BOTConfig = {
 };
 ```
 
+อย่าลืมเปลี่ยนจากชื่อไฟล์ `.env.example` เป็น `.env` <br /> และป้อนข้อมูลที่จำเป็นตามตัวอย่างด่านล่าง
+
+```env
+# Main
+BOT_TOKEN=''
+BOT_CLIENT_ID=''
+BOT_USERNAME='KazusaTest'
+GUILD_ID=''
+```
+
 ### 4.รันบอท
 
 เมื่อกำหนดค่าเสร็จแล้ว ใช้คำสั่งต่อไปนี้: <br/>
