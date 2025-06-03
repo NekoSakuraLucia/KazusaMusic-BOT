@@ -9,7 +9,11 @@ import {
     ButtonBuilder,
     ButtonStyle,
 } from 'discord.js';
-import { JoinVoiceChannel, SearchError } from '@utils/embedEvents';
+import {
+    JoinVoiceChannel,
+    SearchError,
+    selfDeafMember,
+} from '@utils/embedEvents';
 
 import {
     addedToQueueEmbedPlay,
@@ -44,10 +48,18 @@ module.exports = {
             await interaction.deferReply();
 
             const voiceId = (interaction.member as GuildMember).voice.channelId;
-            if (!voiceId)
+            if (!voiceId) {
                 return interaction.editReply({
                     embeds: [JoinVoiceChannel({ interaction, client })],
                 });
+            }
+
+            const selfDeaf = (interaction.member as GuildMember).voice.selfDeaf;
+            if (selfDeaf) {
+                return interaction.editReply({
+                    embeds: [selfDeafMember({ interaction, client })],
+                });
+            }
 
             const player = client.lavalink.createPlayer({
                 guildId: interaction.guildId,
